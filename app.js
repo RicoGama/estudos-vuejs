@@ -18,10 +18,8 @@ Vue.filter('statusGeneral', function (value) {
     }
 });
 
-var appComponent = Vue.extend({
+var menuComponent = Vue.extend({
     template: `
-    <h1>{{ title }}</h1>
-    <h3 :class="{ 'text-gray' : status === false, 'text-green' : status === 0, 'text-red' : status > 0 }">{{ status | statusGeneral }}</h3>
     <nav>
         <ul>
             <li v-for="o in menus">
@@ -29,6 +27,42 @@ var appComponent = Vue.extend({
             </li>
         </ul>
     </nav>
+    `,
+    data: function () {
+        return {
+            menus: [
+                {id: 0, name: "Listar contas"},
+                {id: 1, name: "Criar conta"}
+            ],
+        };
+    },
+    methods: {
+        showView: function (id) {
+            this.$parent.activedView = id;
+            if (id == 1) {
+                this.$parent.formType = 'insert';
+            }
+        },
+    }
+});
+Vue.component('menu-component', menuComponent);
+var appComponent = Vue.extend({
+    template: `
+    <style type="text/css">
+        .text-green {
+            color: green;
+        }
+        .text-red {
+            color: red;
+        }
+        .text-gray {
+            color: gray;
+        }
+
+    </style>
+    <h1>{{ title }}</h1>
+    <h3 :class="{ 'text-gray' : status === false, 'text-green' : status === 0, 'text-red' : status > 0 }">{{ status | statusGeneral }}</h3>
+    <menu-component></menu-component>
     <div v-if="activedView == 0">
         <table cellpadding="10" border="1">
             <thead>
@@ -81,10 +115,6 @@ var appComponent = Vue.extend({
         return {
             test: '',
             title: "Contas a pagar",
-            menus: [
-                {id: 0, name: "Listar contas"},
-                {id: 1, name: "Criar conta"}
-            ],
             activedView: 0,
             formType: 'insert',
             bill: {
@@ -128,12 +158,6 @@ var appComponent = Vue.extend({
         }
     },
     methods: {
-        showView: function (id) {
-            this.activedView = id;
-            if (id == 1) {
-                this.formType = 'insert';
-            }
-        },
         submit: function () {
             if (this.formType == 'insert') {
                 this.bills.push(this.bill);
