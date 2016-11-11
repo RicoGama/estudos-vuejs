@@ -58,7 +58,7 @@
 <div v-if="activedView == 1">
     <form name="form" @submit.prevent="submit">
         <label>Vencimento: </label>
-        <input type="text" v-model="bill.date_due">
+        <input type="text" v-model="bill.date_due" />
         <br /><br />
         <label>Nome:</label>
         <select v-model="bill.name">
@@ -66,9 +66,11 @@
         </select>
         <br /><br />
         <label>Valor:</label>
-        <input type="text" v-model="bill.value">
+        <input type="text" v-model="bill.value" />
         <br /><br />
-        <input type="submit" value="Enviar">
+        <input type="checkbox" v-model="bill.done" /> Pago
+        <br /><br />
+        <input type="submit" value="Enviar" />
     </form>
 </div>
 <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
