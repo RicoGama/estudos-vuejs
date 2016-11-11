@@ -69,6 +69,13 @@ var app = new Vue({
             this.bill = bill;
             this.activedView = 1;
             this.formType = 'update'
+        },
+        removeBill: function(bill) {
+            if (confirm("Deseja excluir essa despesa?")) {
+                this.bills = this.bills.filter(function (index) {
+                    return index !== bill;
+                });
+            }
         }
     }
 });

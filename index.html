@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <title>Aulas vue.js</title>
     <style type="text/css">
-        .pago {
+        .text-green {
             color: green;
         }
-        .nao-pago {
+        .text-red {
             color: red;
         }
-        .minha-classe {
-            background-color: burlywood;
+        .text-gray {
+            color: gray;
         }
+
     </style>
 </head>
 <body id="app">
 <h1>{{ title }}</h1>
-<h3>{{ status }}</h3>
+<h3 :class="{ 'text-green' : bills.length <= 0, 'text-red' : bills.length >= 1 }">{{ status }}</h3>
 <nav>
     <ul>
         <li v-for="o in menus">
@@ -43,11 +44,12 @@
             <td>{{ o.date_due }}</td>
             <td>{{ o.name }}</td>
             <td>{{ o.value | currency 'R$ ' 2 }}</td>
-            <td class="minha-classe" :class="{ 'pago' : o.done, 'nao-pago' : !o.done }">
+            <td :class="{ 'text-green' : o.done, 'text-red' : !o.done }">
                 {{ o.done | doneLabel }}
             </td>
             <td>
-                <a href="#" @click.prevent="loadBill(o)">Editar</a>
+                <a href="#" @click.prevent="loadBill(o)">Editar</a> |
+                <a href="#" @click.prevent="removeBill(o)">Excluir</a>
             </td>
         </tr>
         </tbody>
