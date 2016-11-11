@@ -18,7 +18,7 @@
 </head>
 <body id="app">
 <h1>{{ title }}</h1>
-<h3 :class="{ 'text-green' : bills.length <= 0, 'text-red' : bills.length >= 1 }">{{ status }}</h3>
+<h3 :class="{ 'text-gray' : status === false, 'text-green' : status === 0, 'text-red' : status > 0 }">{{ status | statusGeneral }}</h3>
 <nav>
     <ul>
         <li v-for="o in menus">
