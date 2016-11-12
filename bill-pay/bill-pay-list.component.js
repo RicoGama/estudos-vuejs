@@ -1,16 +1,5 @@
 window.billPayListComponent = Vue.extend({
     template: `
-    <style type="text/css">
-        .text-green {
-            color: green;
-        }
-        .text-red {
-            color: red;
-        }
-        .text-gray {
-            color: gray;
-        }
-    </style>
     <table cellpadding="10" border="1">
             <thead>
             <tr>
@@ -57,6 +46,7 @@ window.billPayListComponent = Vue.extend({
             if (confirm("Deseja excluir essa despesa?")) {
                 this.$http.delete('bills/' + bill.id).then(function (response) {
                     this.bills.$remove(bill);
+                    this.$dispatch('change-status');
                 });
             }
         }
