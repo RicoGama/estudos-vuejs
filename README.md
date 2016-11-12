@@ -1,3 +1,3 @@
 # estudos-vuejs
 
-Exercícios de acompanhamentos das vídeo aulas da Code Education Laravel + Vue.js
+Estudos sobre componentização, ES6 e Vue.js
