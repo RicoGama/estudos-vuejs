@@ -4,6 +4,15 @@ window.billPayComponent = Vue.extend({
     },
     template: `
     <style type="text/css">
+        .text-green {
+            color: green;
+        }
+        .text-red {
+            color: red;
+        }
+        .text-gray {
+            color: gray;
+        }
         .minha-classe {
             background-color: burlywood;
         }
@@ -13,16 +22,22 @@ window.billPayComponent = Vue.extend({
     <menu-component></menu-component>
     <router-view></router-view>
     `,
+    http: {
+        root: 'http://localhost/code_education/estudo-rest/index.php/api'
+    },
     data: function () {
         return {
             title: "Contas a pagar",
+            status: false
         };
     },
-    computed: {
-        status:  function(){
-            var bills = this.$root.$children[0].billsPay;
+    created: function() {
+        this.updateStatus();
+    },
+    methods: {
+        calculateStatus: function (bills) {
             if (!bills.length) {
-                return false;
+                this.status = false;
             }
             var count = 0;
             for(var i in bills){
@@ -30,7 +45,18 @@ window.billPayComponent = Vue.extend({
                     count++;
                 }
             }
-            return count;
+            this.status = count;
+        },
+        updateStatus: function () {
+            var resource = this.$resource('bills{/id}');
+            resource.query().then(function (response) {
+                this.calculateStatus(response.data);
+            });
+        }
+    },
+    events: {
+        'change-status' : function() {
+            this.updateStatus();
         }
     }
 });
