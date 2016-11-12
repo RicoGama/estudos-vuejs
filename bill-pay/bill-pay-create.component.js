@@ -17,6 +17,9 @@ window.billPayCreateComponent = Vue.extend({
         <input type="submit" value="Enviar" />
     </form>
     `,
+    http: {
+        root: 'http://localhost/code_education/estudo-rest/index.php/api'
+    },
     data: function () {
         return {
             formType: 'insert',
@@ -38,30 +41,31 @@ window.billPayCreateComponent = Vue.extend({
         };
     },
     created: function () {
-        if (this.$route.name == 'bill.update') {
+        if (this.$route.name == 'bill-pay.update') {
             this.formType = 'update';
-            this.getBill(this.$route.params.index);
+            this.getBill(this.$route.params.id);
         }
     },
     methods: {
         submit: function () {
             if (this.formType == 'insert') {
-                this.$root.$children[0].billsPay.push(this.bill);
+                this.$http.post('bills', this.bill).then(function (response) {
+                    this.$router.go({
+                        name: 'bill-pay.list'
+                    });
+                });
+            } else {
+                this.$http.put('bills/' + this.bill.id, this.bill).then(function (response) {
+                    this.$router.go({
+                        name: 'bill-pay.list'
+                    });
+                });
             }
-
-            this.bill = {
-                data_due: '',
-                name: '',
-                value: 0,
-                done: 0
-            };
-            this.$router.go({
-                name: 'bill.list'
-            });
         },
-        getBill: function (index) {
-            var bills = this.$root.$children[0].billsPay;
-            this.bill = bills[index];
+        getBill: function (id) {
+            this.$http.get('bills/' + id).then(function (response) {
+                this.bill = response.data;
+            });
         }
     }
 });
