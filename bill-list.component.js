@@ -32,7 +32,7 @@ window.billListComponent = Vue.extend({
                     {{ o.done | doneLabel }}
                 </td>
                 <td>
-                    <a href="#" @click.prevent="loadBill(o)">Editar</a> |
+                    <a v-link="{ name : 'bill.update', params: { index : index } }">Editar</a> |
                     <a href="#" @click.prevent="removeBill(o)">Excluir</a>
                 </td>
             </tr>
@@ -45,19 +45,10 @@ window.billListComponent = Vue.extend({
         };
     },
     methods: {
-        loadBill: function (bill) {
-            this.$dispatch('change-bill', bill);
-            this.$dispatch('change-formtype', 'update');
-        },
         removeBill: function(bill) {
             if (confirm("Deseja excluir essa despesa?")) {
-                this.bills.$remove(bill);
+                this.$root.$children[0].bills.$remove(bill);
             }
-        }
-    },
-    events: {
-        'new-bill': function (bill) {
-            this.bills.push(bill);
         }
     }
 });
