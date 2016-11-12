@@ -1,4 +1,4 @@
-window.billListComponent = Vue.extend({
+window.billPayListComponent = Vue.extend({
     template: `
     <style type="text/css">
         .text-green {
@@ -32,7 +32,7 @@ window.billListComponent = Vue.extend({
                     {{ o.done | doneLabel }}
                 </td>
                 <td>
-                    <a v-link="{ name : 'bill.update', params: { index : index } }">Editar</a> |
+                    <a v-link="{ name : 'bill-pay.update', params: { index : index } }">Editar</a> |
                     <a href="#" @click.prevent="removeBill(o)">Excluir</a>
                 </td>
             </tr>
@@ -41,13 +41,13 @@ window.billListComponent = Vue.extend({
     `,
     data: function () {
         return {
-            bills: this.$root.$children[0].bills
+            bills: this.$root.$children[0].billsPay
         };
     },
     methods: {
         removeBill: function(bill) {
             if (confirm("Deseja excluir essa despesa?")) {
-                this.$root.$children[0].bills.$remove(bill);
+                this.$root.$children[0].billsPay.$remove(bill);
             }
         }
     }

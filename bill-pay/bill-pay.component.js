@@ -1,6 +1,6 @@
-window.appComponent = Vue.extend({
+window.billPayComponent = Vue.extend({
     components: {
-        'menu-component' : menuComponent,
+        'menu-component' : billPayMenuComponent,
     },
     template: `
     <style type="text/css">
@@ -20,7 +20,7 @@ window.appComponent = Vue.extend({
     },
     computed: {
         status:  function(){
-            var bills = this.$root.$children[0].bills;
+            var bills = this.$root.$children[0].billsPay;
             if (!bills.length) {
                 return false;
             }
