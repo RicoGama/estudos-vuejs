@@ -22,9 +22,6 @@ window.billPayComponent = Vue.extend({
     <menu-component></menu-component>
     <router-view></router-view>
     `,
-    http: {
-        root: 'http://localhost/code_education/estudo-rest/index.php/api'
-    },
     data: function () {
         return {
             title: "Contas a pagar",
@@ -48,9 +45,9 @@ window.billPayComponent = Vue.extend({
             this.status = count;
         },
         updateStatus: function () {
-            var resource = this.$resource('bills{/id}');
-            resource.query().then(function (response) {
-                this.calculateStatus(response.data);
+            var self = this;
+            Bill.query().then(function (response) {
+                self.calculateStatus(response.data);
             });
         }
     },
