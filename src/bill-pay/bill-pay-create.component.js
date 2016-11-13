@@ -20,7 +20,7 @@ window.billPayCreateComponent = Vue.extend({
         </select>
         <br /><br />
         <label>Valor:</label>
-        <input type="text" v-model="bill.value" />
+        <input type="text" v-model="bill.value | numberFormat" />
         <br /><br />
         <input type="checkbox" v-model="bill.done" /> Pago
         <br /><br />

@@ -3,7 +3,7 @@
 var names = ['Conta de luz', 'Conta de água', 'Conta de telefone', 'Supermercado', 'Cartão de crédito', 'Empréstimo', 'Gasolina'];
 
 window.billPayCreateComponent = Vue.extend({
-    template: '\n    <form name="form" @submit.prevent="submit">\n        <label>Vencimento: </label>\n        <input type="text" v-model="bill.date_due" />\n        <br /><br />\n        <label>Nome:</label>\n        <select v-model="bill.name">\n            <option v-for="o in names" :value="o">{{ o }}</option>\n        </select>\n        <br /><br />\n        <label>Valor:</label>\n        <input type="text" v-model="bill.value" />\n        <br /><br />\n        <input type="checkbox" v-model="bill.done" /> Pago\n        <br /><br />\n        <input type="submit" value="Enviar" />\n    </form>\n    ',
+    template: '\n    <form name="form" @submit.prevent="submit">\n        <label>Vencimento: </label>\n        <input type="text" v-model="bill.date_due" />\n        <br /><br />\n        <label>Nome:</label>\n        <select v-model="bill.name">\n            <option v-for="o in names" :value="o">{{ o }}</option>\n        </select>\n        <br /><br />\n        <label>Valor:</label>\n        <input type="text" v-model="bill.value | numberFormat" />\n        <br /><br />\n        <input type="checkbox" v-model="bill.done" /> Pago\n        <br /><br />\n        <input type="submit" value="Enviar" />\n    </form>\n    ',
     data: function data() {
         return {
             formType: 'insert',
