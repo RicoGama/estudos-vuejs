@@ -4,7 +4,15 @@ window.billComponent = Vue.extend({
         <nav>
             <div class="nav-wrapper container">
                 <a href="#" class="brand-logo right">Code Contas</a>
-                <ul id="nav-mobile" class="left">
+                <a href="#" data-activates="nav-mobile" class="button-collapse">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="left hide-on-med-and-down">
+                    <li v-for="o in menus">
+                        <a v-link="{ name: o.routeName }">{{ o.name }}</a>
+                    </li>
+                </ul>
+                <ul id="nav-mobile" class="side-nav">
                     <li v-for="o in menus">
                         <a v-link="{ name: o.routeName }">{{ o.name }}</a>
                     </li>
@@ -14,6 +22,11 @@ window.billComponent = Vue.extend({
     </div>
     <router-view></router-view>
     `,
+    created() {
+        jQuery(document).ready(function(){
+            jQuery('.button-collapse').sideNav();
+        });
+    },
     data() {
         return {
             menus: [
