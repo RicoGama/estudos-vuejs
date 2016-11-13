@@ -14,7 +14,7 @@ Vue.filter('statusGeneral', (value) => {
 
 Vue.filter('numberFormat', {
     read(value) {
-        var number = 0;
+        let number = 0;
         if (value && typeof value !== undefined) {
             let numberRegex = value.toString().match(/\d+(\.{1}\d{1,2}){0,1}/g);
             number = numberRegex ? numberRegex[0] : numberRegex;
@@ -27,7 +27,7 @@ Vue.filter('numberFormat', {
         }).format(number);
     },
     write(value) {
-        var number = 0;
+        let number = 0;
         if (value.length > 0) {
             number = value.replace(/[^\d,]/g, '')
                 .replace(/\,/g, '.');
@@ -54,6 +54,14 @@ Vue.filter('dateFormat', {
         return value;
     },
     write(value) {
-
+        let dateRegex = value.match(/\d{2}\/\d{2}\/\d{4}/g);
+        if (dateRegex) {
+            let dateString = dateRegex[0];
+            let date = new Date(dateString.split('/').reverse().join('-')+"T03:00:00");
+            if (!isNaN(date.getTime())) {
+                return date;
+            }
+        }
+        return value;
     }
 });

@@ -58,5 +58,15 @@ Vue.filter('dateFormat', {
         }
         return value;
     },
-    write: function write(value) {}
+    write: function write(value) {
+        var dateRegex = value.match(/\d{2}\/\d{2}\/\d{4}/g);
+        if (dateRegex) {
+            var dateString = dateRegex[0];
+            var date = new Date(dateString.split('/').reverse().join('-') + "T03:00:00");
+            if (!isNaN(date.getTime())) {
+                return date;
+            }
+        }
+        return value;
+    }
 });

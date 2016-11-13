@@ -12,7 +12,7 @@ window.billPayCreateComponent = Vue.extend({
     template: `
     <form name="form" @submit.prevent="submit">
         <label>Vencimento: </label>
-        <input type="text" v-model="bill.date_due" />
+        <input type="text" v-model="bill.date_due | dateFormat" />
         <br /><br />
         <label>Nome:</label>
         <select v-model="bill.name">
@@ -47,15 +47,16 @@ window.billPayCreateComponent = Vue.extend({
     },
     methods: {
         submit() {
+            var data = Vue.util.extend(this.bill, {date_due: this.getDateDue(this.bill.date_due)});
             if (this.formType == 'insert') {
-                Bill.save({},this.bill).then((response) => {
+                Bill.save({},data).then((response) => {
                     this.$dispatch('change-info');
                     this.$router.go({
                         name: 'bill-pay.list'
                     });
                 });
             } else {
-                Bill.update({id : this.bill.id}, this.bill).then((response) => {
+                Bill.update({id : this.bill.id}, data).then((response) => {
                     this.$dispatch('change-info');
                     this.$router.go({
                         name: 'bill-pay.list'
@@ -67,6 +68,13 @@ window.billPayCreateComponent = Vue.extend({
             Bill.get({id : id}).then((response) => {
                 this.bill = response.data;
             });
+        },
+        getDateDue(date_due) {
+            let dateDueObject = date_due;
+            if (!(date_due instanceof Date)) {
+               dateDueObject = new Date(date_due.split('/').reverse().join('-')+"T03:00:00");
+            }
+            return dateDueObject.toISOString().split('T')[0];
         }
     }
 });
