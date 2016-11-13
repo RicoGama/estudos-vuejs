@@ -1,10 +1,7 @@
-'use strict';
+"use strict";
 
 window.billPayComponent = Vue.extend({
-    components: {
-        'menu-component': billPayMenuComponent
-    },
-    template: '\n    <style type="text/css">\n        .text-green {\n            color: green;\n        }\n        .text-red {\n            color: red;\n        }\n        .text-gray {\n            color: gray;\n        }\n        .minha-classe {\n            background-color: burlywood;\n        }\n    </style>\n    <div class="section">\n        <div class="container">\n            <h1>{{ title }}</h1>\n            <h3 :class="{ \'text-gray\' : status === false, \'text-green\' : status === 0, \'text-red\' : status > 0 }">\n                {{ status | statusGeneral }}\n            </h3>\n            <div class="row">\n                <div class="col s5 offset-s7">\n                    <h3> {{ total | numberFormat }}</h3>\n                </div>\n            </div>\n        </div>\n    </div>\n    <router-view></router-view>\n    ',
+    template: "\n    <div class=\"section\">\n        <div class=\"container\">\n            <h4>{{ title }}</h4>\n            <div class=\"row\">\n                <div class=\"col s7\">\n                    <div class=\"card z-depth-2\" :class=\"{ 'gray' : status === false, 'green' : status === 0, 'red' : status > 0 }\">\n                        <div class=\"card-content white-text\">\n                            <p class=\"card-title\">\n                                <i class=\"material-icons\">account_balance</i>\n                            </p>\n                            <h5>{{ status | statusGeneral }}</h5>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"col s5\"> \n                    <div class=\"card z-depth-2\">\n                        <div class=\"card-content\">\n                            <p class=\"card-title\">\n                                <i class=\"material-icons\">payment</i>\n                            </p>\n                            <h5> {{ total | numberFormat }}</h5>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"divider\"></div>\n    <router-view></router-view>\n    ",
     data: function data() {
         return {
             title: "Contas a pagar",

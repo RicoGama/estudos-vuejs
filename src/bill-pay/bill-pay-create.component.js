@@ -10,22 +10,41 @@ const names = [
 
 window.billPayCreateComponent = Vue.extend({
     template: `
-    <form name="form" @submit.prevent="submit">
-        <label>Vencimento: </label>
-        <input type="text" v-model="bill.date_due | dateFormat" />
-        <br /><br />
-        <label>Nome:</label>
-        <select v-model="bill.name">
-            <option v-for="o in names" :value="o">{{ o }}</option>
-        </select>
-        <br /><br />
-        <label>Valor:</label>
-        <input type="text" v-model="bill.value | numberFormat" />
-        <br /><br />
-        <input type="checkbox" v-model="bill.done" /> Pago
-        <br /><br />
-        <input type="submit" value="Enviar" />
-    </form>
+    <div class="container">
+        <div class="row">
+            <h2>Nova conta</h2>
+            <form name="form" @submit.prevent="submit">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label>Vencimento</label>
+                        <input type="text" v-model="bill.date_due | dateFormat" />
+                    </div>
+                    <div class="input-field col s6">
+                        <label class="active">Valor:</label>
+                        <input type="text" v-model="bill.value | numberFormat" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label class="active">Nome:</label>
+                        <select v-model="bill.name" id="name" class="browser-default">
+                            <option value="" disabled selected>Escolha um nome</option>
+                            <option v-for="o in names" :value="o">{{ o }}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="checkbox" class="filled-in" v-model="bill.done" id="pago" />
+                        <label for="pago">Pago?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" value="Enviar" class="btn btn-large right" />
+                    </div>
+                </div>      
+            </form>
+        </div>
+    </div>
     `,
     data() {
         return {
@@ -39,12 +58,16 @@ window.billPayCreateComponent = Vue.extend({
             this.formType = 'update';
             this.getBill(this.$route.params.id);
         }
+        jQuery(document).ready(function(){
+            jQuery('#name').material_select();
+        });
     },
     methods: {
         submit() {
             var data = this.bill.toJSON();
             if (this.formType == 'insert') {
                 Bill.save({},data).then((response) => {
+                    Materialize.toast('Conta criada com sucesso!', 4000);
                     this.$dispatch('change-info');
                     this.$router.go({
                         name: 'bill-pay.list'
@@ -52,6 +75,7 @@ window.billPayCreateComponent = Vue.extend({
                 });
             } else {
                 Bill.update({id : this.bill.id}, data).then((response) => {
+                    Materialize.toast('Conta atualizada com sucesso!', 4000);
                     this.$dispatch('change-info');
                     this.$router.go({
                         name: 'bill-pay.list'
