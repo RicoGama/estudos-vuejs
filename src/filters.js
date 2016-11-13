@@ -16,7 +16,8 @@ Vue.filter('numberFormat', {
     read(value) {
         var number = 0;
         if (value && typeof value !== undefined) {
-            number = value.toString().match(/\d+(\.{1}\d{1,2}){0,1}/g)[0] || 0;
+            let numberRegex = value.toString().match(/\d+(\.{1}\d{1,2}){0,1}/g);
+            number = numberRegex ? numberRegex[0] : numberRegex;
         }
         return new Intl.NumberFormat('pt-BR', {
             minimumFractionDigits: 2,
@@ -33,5 +34,26 @@ Vue.filter('numberFormat', {
             number = isNaN(number) ? 0 : parseFloat(number);
         }
         return number;
+    }
+});
+
+Vue.filter('dateFormat', {
+    read(value) {
+        if (value && typeof value !== undefined) {
+            if (!(value instanceof Date)) {
+                let dateRegex = value.match(/\d{4}\-\d{2}\-\d{2}/g);
+                let dateString = dateRegex ? dateRegex[0] : null;
+                if (dateString) {
+                    value = new Date(dateString+"T03:00:00");
+                } else {
+                    return value;
+                }
+            }
+            return new Intl.DateTimeFormat('pt-BR').format(value).split(' ')[0];
+        }
+        return value;
+    },
+    write(value) {
+
     }
 });
