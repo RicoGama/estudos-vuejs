@@ -16,6 +16,7 @@ window.billPayComponent = Vue.extend({
         this.updateStatus();
         this.updateTotal();
     },
+
     methods: {
         calculateStatus: function calculateStatus(bills) {
             if (!bills.length) {
@@ -30,15 +31,17 @@ window.billPayComponent = Vue.extend({
             this.status = count;
         },
         updateStatus: function updateStatus() {
-            var self = this;
+            var _this = this;
+
             Bill.query().then(function (response) {
-                self.calculateStatus(response.data);
+                _this.calculateStatus(response.data);
             });
         },
         updateTotal: function updateTotal() {
-            var self = this;
+            var _this2 = this;
+
             Bill.total().then(function (response) {
-                self.total = response.data.total;
+                _this2.total = response.data.total;
             });
         }
     },

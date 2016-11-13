@@ -8,23 +8,22 @@ window.billPayListComponent = Vue.extend({
         };
     },
     created: function created() {
-        var self = this;
+        var _this = this;
+
         Bill.query().then(function (response) {
-            self.bills = response.data;
+            _this.bills = response.data;
         });
     },
+
     methods: {
         removeBill: function removeBill(bill) {
-            var _this = this;
+            var _this2 = this;
 
             if (confirm("Deseja excluir essa despesa?")) {
-                (function () {
-                    var self = _this;
-                    Bill.delete({ id: bill.id }).then(function (response) {
-                        self.bills.$remove(bill);
-                        self.$dispatch('change-info');
-                    });
-                })();
+                Bill.delete({ id: bill.id }).then(function (response) {
+                    _this2.bills.$remove(bill);
+                    _this2.$dispatch('change-info');
+                });
             }
         }
     }

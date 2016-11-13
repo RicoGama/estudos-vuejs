@@ -28,24 +28,22 @@ window.billPayListComponent = Vue.extend({
             </tbody>
         </table>
     `,
-    data: function () {
+    data() {
         return {
             bills: []
         };
     },
-    created: function() {
-        let self = this;
-        Bill.query().then(function (response) {
-            self.bills = response.data;
+    created() {
+        Bill.query().then((response) => {
+            this.bills = response.data;
         });
     },
     methods: {
-        removeBill: function(bill) {
+        removeBill(bill) {
             if (confirm("Deseja excluir essa despesa?")) {
-                let self = this;
-                Bill.delete({id : bill.id}).then(function (response) {
-                    self.bills.$remove(bill);
-                    self.$dispatch('change-info');
+                Bill.delete({id : bill.id}).then((response) => {
+                    this.bills.$remove(bill);
+                    this.$dispatch('change-info');
                 });
             }
         }

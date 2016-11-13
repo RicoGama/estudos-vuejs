@@ -1,12 +1,6 @@
-Vue.filter('doneLabel', function (value) {
-    if (value == '0') {
-        return 'Não paga';
-    } else {
-        return 'Paga';
-    }
-});
+Vue.filter('doneLabel', (value) => value == 0 ? "Não paga" : "Paga");
 
-Vue.filter('statusGeneral', function (value) {
+Vue.filter('statusGeneral', (value) => {
     if (value === false) {
         return "Nenhuma conta cadastrada";
     }
