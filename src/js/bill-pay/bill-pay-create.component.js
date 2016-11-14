@@ -16,7 +16,7 @@ window.billPayCreateComponent = Vue.extend({
             <form name="form" @submit.prevent="submit">
                 <div class="row">
                     <div class="input-field col s6">
-                        <label>Vencimento</label>
+                        <label class="active">Vencimento</label>
                         <input type="text" v-model="bill.date_due | dateFormat" />
                     </div>
                     <div class="input-field col s6">

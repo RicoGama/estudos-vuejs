@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel": "CHOKIDAR_USEPOLLING=true babel src --out-dir dist --watch",
-    "liteserver": "lite-server"
+    "liteserver": "lite-server",
+    "sass": "node-sass ./src/sass -o ./dist/css",
+    "sass:w": "node-sass ./src/sass -o ./dist/css -w"
   },
   "author": "Ricardo Gama",
   "license": "ISC",
