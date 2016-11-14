@@ -8,7 +8,8 @@
     "babel": "CHOKIDAR_USEPOLLING=true babel src --out-dir dist --watch",
     "liteserver": "lite-server",
     "sass": "node-sass ./src/sass -o ./dist/css",
-    "sass:w": "node-sass ./src/sass -o ./dist/css -w"
+    "sass:w": "node-sass ./src/sass -o ./dist/css -w",
+    "start": "concurrently \"npm run babel\" \"npm run sass\" \"npm run sass:w\" \"npm run liteserver\" \"gulp\" "
   },
   "author": "Ricardo Gama",
   "license": "ISC",
