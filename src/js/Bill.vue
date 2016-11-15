@@ -1,5 +1,4 @@
-export default {
-    template: `
+<template>
     <ul :id="o.id" class="dropdown-content" v-for="o in menusDropdown">
         <li v-for="item in o.items">
             <a v-link="{ name: item.routeName }">{{ item.name }}</a>
@@ -29,31 +28,34 @@ export default {
         </nav>
     </div>
     <router-view></router-view>
-    `,
-    ready(){
-        $('.button-collapse').sideNav();
-        $('.dropdown-button').dropdown();
-    },
-    data() {
-        return {
-            menus: [
-                {name: "Contas a pagar", routeName: 'bill-pay.list', dropdownId: 'bill-pay'},
-                {name: "Contas a receber", routeName: 'bill-receive', dropdownId: 'bill-receive'}
-            ],
-            menusDropdown: [
-                {
-                    id: 'bill-pay', items: [
+</template>
+<script type="text/javascript">
+    export default {
+        ready(){
+            $('.button-collapse').sideNav();
+            $('.dropdown-button').dropdown();
+        },
+        data() {
+            return {
+                menus: [
+                    {name: "Contas a pagar", routeName: 'bill-pay.list', dropdownId: 'bill-pay'},
+                    {name: "Contas a receber", routeName: 'bill-receive', dropdownId: 'bill-receive'}
+                ],
+                menusDropdown: [
+                    {
+                        id: 'bill-pay', items: [
                         {id: 0, name: "Listar contas", routeName: 'bill-pay.list'},
                         {id: 1, name: "Criar conta", routeName: 'bill-pay.create'}
                     ]
-                },
-                {
-                    id: 'bill-receive', items: [
-                    {id: 0, name: "Listar contas", routeName: 'bill-pay.list'},
-                    {id: 1, name: "Criar conta", routeName: 'bill-pay.create'}
-                ]
-                },
-            ],
-        };
-    }
-};
+                    },
+                    {
+                        id: 'bill-receive', items: [
+                        {id: 0, name: "Listar contas", routeName: 'bill-pay.list'},
+                        {id: 1, name: "Criar conta", routeName: 'bill-pay.create'}
+                    ]
+                    },
+                ],
+            };
+        }
+    };
+</script>
