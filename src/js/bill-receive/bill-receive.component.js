@@ -1,4 +1,4 @@
-window.billReceiveComponent = Vue.extend({
+module.exports = {
     /*components: {
         'menu-component' : billPayMenuComponent,
     },*/
@@ -35,4 +35,4 @@ window.billReceiveComponent = Vue.extend({
             return count;
         }
     }*/
-});
+};

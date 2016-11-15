@@ -1,4 +1,4 @@
-window.modalComponent = Vue.extend({
+module.exports = {
     template: `
     <div :id="modal.id" class="modal">
         <div class="modal-content">
@@ -9,12 +9,15 @@ window.modalComponent = Vue.extend({
         </div>
     </div>
     `,
-    props: ['modal'],
-    data() {
-        return {
-            modal: {
-                id: ''
-            },
-        };
+    props: {
+
+        modal: {
+            type: Object,
+            default() {
+                return {
+                    id: ''
+                }
+            }
+        }
     }
-});
+};

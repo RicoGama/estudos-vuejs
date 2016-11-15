@@ -7,8 +7,9 @@ const names = [
     'Empréstimo',
     'Gasolina',
 ];
+let BillPay = require('../bill');
 
-window.billPayCreateComponent = Vue.extend({
+module.exports = {
     template: `
     <div class="container">
         <div class="row">
@@ -58,9 +59,9 @@ window.billPayCreateComponent = Vue.extend({
             this.formType = 'update';
             this.getBill(this.$route.params.id);
         }
-        jQuery(document).ready(function(){
-            jQuery('#name').material_select();
-        });
+    },
+    ready() {
+        $('#name').material_select();
     },
     methods: {
         submit() {
@@ -96,4 +97,4 @@ window.billPayCreateComponent = Vue.extend({
             return dateDueObject.toISOString().split('T')[0];
         }
     }
-});
+};

@@ -1,4 +1,4 @@
-window.billPayComponent = Vue.extend({
+module.exports = {
     template: `
     <div class="section">
         <div class="container">
@@ -71,4 +71,4 @@ window.billPayComponent = Vue.extend({
             this.updateTotal();
         }
     }
-});
+};

@@ -1,7 +1,4 @@
-window.billComponent = Vue.extend({
-    components: {
-        'modal': modalComponent
-    },
+module.exports = {
     template: `
     <ul :id="o.id" class="dropdown-content" v-for="o in menusDropdown">
         <li v-for="item in o.items">
@@ -33,11 +30,9 @@ window.billComponent = Vue.extend({
     </div>
     <router-view></router-view>
     `,
-    created() {
-        jQuery(document).ready(function(){
-            jQuery('.button-collapse').sideNav();
-            jQuery('.dropdown-button').dropdown();
-        });
+    ready(){
+        $('.button-collapse').sideNav();
+        $('.dropdown-button').dropdown();
     },
     data() {
         return {
@@ -61,4 +56,4 @@ window.billComponent = Vue.extend({
             ],
         };
     }
-});
+};

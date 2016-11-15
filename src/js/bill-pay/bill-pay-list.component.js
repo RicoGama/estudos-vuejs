@@ -1,4 +1,6 @@
-window.billPayListComponent = Vue.extend({
+let modalComponent = require('../modal.component');
+
+module.exports = {
     components :{
         'modal': modalComponent
     },
@@ -38,7 +40,7 @@ window.billPayListComponent = Vue.extend({
         </div>
     </div>
     <modal :modal="modal">
-        <div slot="content">
+        <div slot="content" v-if="billToDelete">
             <h4>Mensagem de confirmação</h4>
             <p><strong>Deseja excluir esta conta?</strong></p>
             <div class="divider"></div>
@@ -66,8 +68,8 @@ window.billPayListComponent = Vue.extend({
         Bill.query().then((response) => {
             this.bills = response.data;
         });
-        jQuery(document).ready(function(){
-            jQuery('.modal').modal();
+        $(document).ready(function(){
+            $('.modal').modal();
         });
     },
     methods: {
@@ -81,7 +83,7 @@ window.billPayListComponent = Vue.extend({
         },
         openModalDelete(bill) {
             this.billToDelete = bill;
-            jQuery('#modal-delete').modal('open');
+            $('#modal-delete').modal('open');
         }
     }
-});
+};
